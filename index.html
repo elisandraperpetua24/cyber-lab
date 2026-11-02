@@ -3,295 +3,277 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HACKER MATRIX 4.0 | CYBER LAB</title>
-
+<title>HACKER MATRIX 5.0</title>
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;background:#050b08;color:#00ff88;
- font-family:Consolas,monospace;
-}
-header{
- text-align:center;padding:25px 12px;
- border-bottom:1px solid #00ff88;
- background:#07150e;
-}
+body{margin:0;background:#030a06;color:#00ff88;font-family:Consolas,monospace}
+header{text-align:center;padding:25px 12px;background:#07170d;border-bottom:1px solid #00ff88}
 header h1{font-size:clamp(22px,5vw,36px)}
-header p{color:#a5ffc9}
-nav{
- display:flex;flex-wrap:wrap;justify-content:center;
- gap:8px;padding:14px;background:#08130d;
- position:sticky;top:0;z-index:5;
-}
-button{
- background:#092c19;color:#00ff88;
- border:1px solid #00ff88;padding:11px 15px;
- border-radius:7px;cursor:pointer;
- font-weight:bold;
-}
+header p{color:#b4ffce}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:13px;background:#08150d;position:sticky;top:0;z-index:5}
+button{background:#092c19;color:#00ff88;border:1px solid #00ff88;border-radius:6px;padding:11px 14px;cursor:pointer;font-weight:bold}
 button:hover{background:#00ff88;color:#001a0b}
-main{max-width:950px;margin:auto;padding:18px}
-section{
- display:none;background:#09140e;
- border:1px solid #126b3c;border-radius:12px;
- padding:20px;margin:18px 0;
-}
+main{max-width:950px;margin:auto;padding:16px}
+section{display:none;padding:20px;background:#09150e;border:1px solid #14633a;border-radius:12px;margin:15px 0}
 section.active{display:block}
-h2{color:#00ff88}
-p{line-height:1.6;color:#d1ffe2}
-input{
- width:100%;padding:13px;margin:9px 0;
- background:#020805;color:#00ff88;
- border:1px solid #00aa55;border-radius:6px;
-}
-.terminal{
- background:#000;color:#00ff88;
- min-height:230px;padding:15px;
- border:1px solid #00ff88;border-radius:8px;
- white-space:pre-wrap;overflow-wrap:anywhere;
- line-height:1.6;
-}
-.result{margin-top:15px;color:#a5ffc9;overflow-wrap:anywhere}
-.card{
- background:#0c2013;padding:14px;
- border-left:3px solid #00ff88;
- margin:12px 0;border-radius:5px;
-}
-footer{text-align:center;padding:25px;color:#7dbe94}
-.small{font-size:12px;color:#9dc9aa}
+h2,h3{color:#00ff88}
+p{color:#d1ffe2;line-height:1.6}
+.card{background:#0c2114;border-left:3px solid #00ff88;padding:15px;margin:12px 0;border-radius:6px}
+input{width:100%;padding:12px;margin:8px 0;background:#020805;color:#00ff88;border:1px solid #00aa55;border-radius:6px}
+.progress{height:14px;background:#14251a;border-radius:20px;overflow:hidden;margin:12px 0}
+.progress div{height:100%;width:0;background:#00ff88;transition:.3s}
+.result{color:#aaffc8;margin-top:12px;line-height:1.7}
+.question{padding:12px;background:#102319;margin:12px 0;border-radius:7px}
+label{display:block;color:#d1ffe2;padding:6px;cursor:pointer}
+.certificate{border:3px double #00ff88;padding:25px;text-align:center;background:#07150c;margin-top:15px}
+.small{font-size:12px;color:#a5c9b1}
+footer{text-align:center;padding:25px;color:#9dc5a8}
 </style>
 </head>
-
 <body>
 
 <header>
-<h1>HACKER MATRIX 4.0</h1>
-<p>CYBER LAB | LEARN • EXPLORE • PROTECT</p>
+<h1>HACKER MATRIX 5.0</h1>
+<p>CYBER ACADEMY | LEARN • PRACTICE • PROTECT</p>
 <p id="clock"></p>
 </header>
 
 <nav>
 <button onclick="showPage('home')">INÍCIO</button>
-<button onclick="showPage('terminal')">TERMINAL</button>
-<button onclick="showPage('password')">SENHAS</button>
-<button onclick="showPage('network')">REDES</button>
-<button onclick="showPage('security')">SEGURANÇA</button>
-<button onclick="showPage('about')">SOBRE</button>
+<button onclick="showPage('profile')">PERFIL</button>
+<button onclick="showPage('lessons')">AULAS</button>
+<button onclick="showPage('quiz')">DESAFIO</button>
+<button onclick="showPage('certificate')">CERTIFICADO</button>
 </nav>
 
 <main>
 
 <section id="home" class="active">
-<h2>Bem-vinda ao Cyber Lab!</h2>
-<p>Este é um laboratório educativo para aprender informática e cibersegurança.</p>
-
+<h2>Bem-vinda à Cyber Academy!</h2>
+<p>Uma plataforma educativa para aprender informática e cibersegurança.</p>
 <div class="card">
-<h3>01 — Terminal educativo</h3>
-<p>Aprende comandos básicos num ambiente simulado.</p>
+<h3>O teu painel</h3>
+<p>Estudante: <span id="homeName">Estudante</span></p>
+<p>Pontuação: <strong id="homePoints">0</strong> pontos</p>
+<p>Aulas concluídas: <strong id="homeLessons">0</strong>/4</p>
+<div class="progress"><div id="homeBar"></div></div>
 </div>
-
 <div class="card">
-<h3>02 — Segurança digital</h3>
-<p>Conhece boas práticas para proteger as tuas contas.</p>
-</div>
-
-<div class="card">
-<h3>03 — Redes informáticas</h3>
-<p>Descobre como os computadores comunicam.</p>
+<h3>Missão da academia</h3>
+<p>Aprender a utilizar a tecnologia de forma responsável, segura e inteligente.</p>
 </div>
 </section>
 
-<section id="terminal">
-<h2>Terminal educativo</h2>
-<p>Experimenta os comandos abaixo. Este terminal é apenas uma simulação.</p>
-
-<div class="terminal" id="output">CYBER LAB TERMINAL 4.0
-Sistema educativo iniciado.
-Escreve help para ver os comandos disponíveis.</div>
-
-<input id="command" placeholder="Escreve um comando..." onkeydown="if(event.key==='Enter')runCommand()">
-<button onclick="runCommand()">EXECUTAR</button>
-<button onclick="clearTerminal()">LIMPAR</button>
-
-<p class="small">Comandos: help, about, date, whoami, ls, security, clear</p>
+<section id="profile">
+<h2>Perfil do estudante</h2>
+<p>Cria o teu perfil local de aprendizagem.</p>
+<input id="studentName" placeholder="Escreve o teu nome ou apelido">
+<button onclick="saveProfile()">GUARDAR PERFIL</button>
+<div class="result" id="profileResult"></div>
 </section>
 
-<section id="password">
-<h2>Laboratório de palavras-passe</h2>
+<section id="lessons">
+<h2>Centro de aprendizagem</h2>
 
 <div class="card">
-<h3>Gerador de demonstração</h3>
-<p>Cria uma palavra-passe aleatória para experimentar a ferramenta.</p>
-<button onclick="generatePassword()">GERAR</button>
-<div class="result" id="generated"></div>
+<h3>Aula 1 — Introdução à cibersegurança</h3>
+<p>Cibersegurança é a protecção de computadores, redes e informações contra riscos digitais.</p>
+<button onclick="completeLesson(1)">CONCLUIR AULA</button>
 </div>
 
 <div class="card">
-<h3>Verificador educativo</h3>
-<p>Usa apenas uma palavra-passe fictícia, nunca a tua palavra-passe verdadeira.</p>
-<input id="testPassword" type="text" placeholder="Escreve uma senha de teste">
-<button onclick="checkPassword()">VERIFICAR</button>
-<div class="result" id="passwordResult"></div>
+<h3>Aula 2 — Redes informáticas</h3>
+<p>Uma rede permite que dispositivos comuniquem e partilhem informações.</p>
+<button onclick="completeLesson(2)">CONCLUIR AULA</button>
 </div>
 
-<p class="small">Estas ferramentas funcionam localmente nesta página. Não são um serviço de armazenamento de palavras-passe.</p>
+<div class="card">
+<h3>Aula 3 — Palavras-passe</h3>
+<p>Utiliza palavras-passe longas, diferentes para cada conta e activa a verificação em dois passos.</p>
+<button onclick="completeLesson(3)">CONCLUIR AULA</button>
+</div>
+
+<div class="card">
+<h3>Aula 4 — Segurança na Internet</h3>
+<p>Verifica os endereços dos sites, evita links suspeitos e nunca partilhes códigos de acesso.</p>
+<button onclick="completeLesson(4)">CONCLUIR AULA</button>
+</div>
+
+<p class="result" id="lessonResult"></p>
 </section>
 
-<section id="network">
-<h2>Aprender sobre redes</h2>
+<section id="quiz">
+<h2>Desafio de cibersegurança</h2>
+<p>Responde às cinco perguntas. Cada resposta certa vale 20 pontos.</p>
 
-<div class="card">
-<h3>O que é uma rede informática?</h3>
-<p>É um conjunto de dispositivos ligados entre si para trocar informações e partilhar recursos.</p>
+<div class="question">
+<strong>1. O que significa cibersegurança?</strong>
+<label><input type="radio" name="q1" value="a"> Proteger sistemas e informações digitais</label>
+<label><input type="radio" name="q1" value="b"> Criar jogos</label>
+<label><input type="radio" name="q1" value="c"> Desligar computadores</label>
 </div>
 
-<div class="card">
-<h3>IP Address</h3>
-<p>É um endereço numérico utilizado para identificar um dispositivo numa rede.</p>
+<div class="question">
+<strong>2. Para que serve um firewall?</strong>
+<label><input type="radio" name="q2" value="a"> Aumentar o brilho</label>
+<label><input type="radio" name="q2" value="b"> Controlar o tráfego de rede segundo regras</label>
+<label><input type="radio" name="q2" value="c"> Editar fotografias</label>
 </div>
 
-<div class="card">
-<h3>Router</h3>
-<p>É um equipamento que encaminha dados entre redes.</p>
+<div class="question">
+<strong>3. O que é um endereço IP?</strong>
+<label><input type="radio" name="q3" value="a"> Um tipo de teclado</label>
+<label><input type="radio" name="q3" value="b"> Um jogo online</label>
+<label><input type="radio" name="q3" value="c"> Um endereço utilizado numa rede</label>
 </div>
 
-<div class="card">
-<h3>DNS</h3>
-<p>É um sistema que ajuda a transformar nomes de domínios em endereços IP.</p>
+<div class="question">
+<strong>4. O que deves fazer com um link suspeito?</strong>
+<label><input type="radio" name="q4" value="a"> Evitar abrir e verificar a origem</label>
+<label><input type="radio" name="q4" value="b"> Partilhar com todos</label>
+<label><input type="radio" name="q4" value="c"> Introduzir a tua senha</label>
 </div>
 
-<div class="card">
-<h3>Firewall</h3>
-<p>Ajuda a controlar o tráfego de rede de acordo com regras de segurança.</p>
+<div class="question">
+<strong>5. Para que serve a autenticação de dois factores?</strong>
+<label><input type="radio" name="q5" value="a"> Mudar o fundo do telefone</label>
+<label><input type="radio" name="q5" value="b"> Adicionar uma camada de segurança</label>
+<label><input type="radio" name="q5" value="c"> Apagar ficheiros</label>
 </div>
+
+<button onclick="checkQuiz()">SUBMETER RESPOSTAS</button>
+<div class="result" id="quizResult"></div>
 </section>
 
-<section id="security">
-<h2>Centro de segurança</h2>
-
-<div class="card">
-<h3>Protege as tuas contas</h3>
-<p>Usa palavras-passe diferentes e fortes.</p>
-</div>
-
-<div class="card">
-<h3>Verificação em dois passos</h3>
-<p>Activa a autenticação de dois factores sempre que possível.</p>
-</div>
-
-<div class="card">
-<h3>Links suspeitos</h3>
-<p>Não abras links desconhecidos nem partilhes códigos de verificação.</p>
-</div>
-
-<div class="card">
-<h3>Actualizações</h3>
-<p>Mantém o sistema operativo e as aplicações actualizados.</p>
-</div>
-</section>
-
-<section id="about">
-<h2>Sobre o projecto</h2>
-<p>HACKER MATRIX 4.0 é um projecto educativo de informática e cibersegurança.</p>
-<p>Objectivo: aprender tecnologia, compreender redes e desenvolver hábitos de segurança digital.</p>
-<p><strong>LEARN TECHNOLOGY. PROTECT THE DIGITAL WORLD.</strong></p>
+<section id="certificate">
+<h2>Certificado demonstrativo</h2>
+<p>Conclui as quatro aulas e obtém pelo menos 80 pontos no desafio.</p>
+<button onclick="makeCertificate()">VERIFICAR CONCLUSÃO</button>
+<div id="certificateResult" class="result"></div>
+<p class="small">Este é um certificado educativo gerado pelo projecto. Não é uma certificação profissional ou oficial.</p>
 </section>
 
 </main>
 
 <footer>
-<p>HACKER MATRIX 4.0 — CYBER LAB</p>
+HACKER MATRIX 5.0 — CYBER ACADEMY
 <p>Educational project | 2026</p>
 </footer>
 
 <script>
+const defaults={
+ name:"Estudante",
+ lessons:[],
+ points:0,
+ quizDone:false
+};
+
+let data;
+try{
+ data=JSON.parse(localStorage.getItem("cyberAcademy"))||defaults;
+ if(!Array.isArray(data.lessons))data.lessons=[];
+ if(typeof data.points!=="number")data.points=0;
+}catch(e){
+ data={...defaults,lessons:[]};
+}
+
+function saveData(){
+ localStorage.setItem("cyberAcademy",JSON.stringify(data));
+ updateDashboard();
+}
+
 function showPage(id){
- document.querySelectorAll("main section").forEach(s=>{
-  s.classList.remove("active");
- });
+ document.querySelectorAll("main section").forEach(s=>s.classList.remove("active"));
  document.getElementById(id).classList.add("active");
  window.scrollTo(0,0);
 }
 
 function updateClock(){
- document.getElementById("clock").textContent=
- new Date().toLocaleString("pt-PT");
+ document.getElementById("clock").textContent=new Date().toLocaleString("pt-PT");
 }
 updateClock();
 setInterval(updateClock,1000);
 
-const output=document.getElementById("output");
+function updateDashboard(){
+ document.getElementById("homeName").textContent=data.name;
+ document.getElementById("homePoints").textContent=data.points;
+ document.getElementById("homeLessons").textContent=data.lessons.length;
+ document.getElementById("homeBar").style.width=(data.lessons.length/4*100)+"%";
+}
 
-function runCommand(){
- const input=document.getElementById("command");
- const cmd=input.value.trim().toLowerCase();
- if(!cmd)return;
-
- let response="Comando não reconhecido. Escreve help.";
-
- const commands={
-  help:"COMANDOS DISPONÍVEIS:\nhelp - mostrar comandos\nabout - sobre o laboratório\ndate - data actual\nwhoami - utilizador simulado\nls - listar áreas educativas\nsecurity - dicas de segurança\nclear - limpar terminal",
-  about:"CYBER LAB 4.0\nAmbiente de aprendizagem de informática.",
-  whoami:"Utilizador: estudante\nAmbiente: terminal simulado",
-  ls:"Áreas disponíveis:\nTerminal\nRedes\nSegurança\nPalavras-passe",
-  security:"DICA: nunca partilhes palavras-passe ou códigos de verificação.",
-  date:new Date().toLocaleString("pt-PT")
- };
-
- if(cmd==="clear"){
-  clearTerminal();
-  input.value="";
+function saveProfile(){
+ const name=document.getElementById("studentName").value.trim();
+ if(!name){
+  document.getElementById("profileResult").textContent="Escreve um nome primeiro.";
   return;
  }
-
- if(commands[cmd])response=commands[cmd];
-
- output.textContent+="\n\n> "+cmd+"\n"+response;
- input.value="";
- output.scrollTop=output.scrollHeight;
+ data.name=name;
+ saveData();
+ document.getElementById("profileResult").textContent="Perfil guardado com sucesso!";
 }
 
-function clearTerminal(){
- output.textContent="CYBER LAB TERMINAL 4.0\nTerminal limpo.\nEscreve help para começar.";
-}
-
-function generatePassword(){
- const chars="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%";
- const array=new Uint32Array(16);
- crypto.getRandomValues(array);
- let password="";
- for(let i=0;i<16;i++){
-  password+=chars[array[i]%chars.length];
- }
- document.getElementById("generated").textContent=
- "Senha de demonstração: "+password;
-}
-
-function checkPassword(){
- const p=document.getElementById("testPassword").value;
- const result=document.getElementById("passwordResult");
-
- if(!p){
-  result.textContent="Escreve uma senha fictícia para testar.";
+function completeLesson(n){
+ if(data.lessons.includes(n)){
+  document.getElementById("lessonResult").textContent="Esta aula já foi concluída.";
   return;
  }
+ data.lessons.push(n);
+ data.points+=10;
+ saveData();
+ document.getElementById("lessonResult").textContent="Aula concluída! +10 pontos.";
+}
 
+function checkQuiz(){
+ const answers={q1:"a",q2:"b",q3:"c",q4:"a",q5:"b"};
  let score=0;
- if(p.length>=12)score++;
- if(/[A-Z]/.test(p))score++;
- if(/[a-z]/.test(p))score++;
- if(/[0-9]/.test(p))score++;
- if(/[^A-Za-z0-9]/.test(p))score++;
+ for(const [q,correct] of Object.entries(answers)){
+  const selected=document.querySelector('input[name="'+q+'"]:checked');
+  if(!selected){
+   document.getElementById("quizResult").textContent="Responde a todas as perguntas primeiro.";
+   return;
+  }
+  if(selected.value===correct)score++;
+ }
 
- let message="";
- if(score<=2)message="Exemplo: precisa de melhorias.";
- else if(score<=3)message="Exemplo: segurança intermédia.";
- else message="Exemplo: bons critérios de complexidade.";
-
- result.textContent=message+
- "\nCritérios cumpridos: "+score+" de 5."+
- "\nEste teste é educativo e não garante segurança real.";
+ const points=score*20;
+ if(!data.quizDone){
+  data.points+=points;
+  data.quizDone=true;
+  saveData();
+ }
+ document.getElementById("quizResult").textContent=
+ "Resultado: "+score+"/5 respostas certas. Pontuação: "+points+"/100."+
+ (data.quizDone?" Se já tinhas feito o desafio, os pontos não são adicionados novamente.":"");
 }
+
+function makeCertificate(){
+ const box=document.getElementById("certificateResult");
+ if(data.lessons.length<4||!data.quizDone||data.points<80){
+  box.textContent="Ainda não cumpriste os requisitos. Conclui as 4 aulas e obtém pelo menos 80 pontos.";
+  return;
+ }
+ box.innerHTML="";
+ const cert=document.createElement("div");
+ cert.className="certificate";
+ const title=document.createElement("h2");
+ title.textContent="CERTIFICADO DE CONCLUSÃO";
+ const name=document.createElement("h3");
+ name.textContent=data.name;
+ const desc=document.createElement("p");
+ desc.textContent="Concluiu as actividades educativas da HACKER MATRIX 5.0 — CYBER ACADEMY.";
+ const points=document.createElement("p");
+ points.textContent="Pontuação: "+data.points+" pontos";
+ const note=document.createElement("p");
+ note.textContent="Certificado demonstrativo — projecto educativo.";
+ cert.append(title,name,desc,points,note);
+ box.appendChild(cert);
+ const btn=document.createElement("button");
+ btn.textContent="IMPRIMIR / GUARDAR PDF";
+ btn.onclick=()=>window.print();
+ box.appendChild(btn);
+}
+
+updateDashboard();
 </script>
 
 </body>

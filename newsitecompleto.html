@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HACKER MATRIX 3.0</title>
+
+<style>
+:root {
+  --green: #00ff75;
+  --dark: #030906;
+  --panel: #09170f;
+  --border: #145c32;
+  --muted: #9bb5a3;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--dark);
+  color: white;
+  font-family: Consolas, monospace;
+}
+
+canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  opacity: .22;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, transparent, #020604 90%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+header {
+  padding: 25px 15px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  background: #030906dd;
+}
+
+.logo {
+  color: var(--green);
+  font-size: clamp(25px, 5vw, 40px);
+  font-weight: bold;
+  text-shadow: 0 0 15px var(--green);
+}
+
+header p { color: var(--muted); }
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  padding: 17px;
+  background: #07140c;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  border-bottom: 1px solid var(--border);
+}
+
+nav a {
+  color: var(--green);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 8px;
+}
+
+nav a:hover { color: white; }
+
+main {
+  width: min(1100px, 94%);
+  margin: auto;
+}
+
+section { scroll-margin-top: 85px; }
+
+.hero {
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 35px 15px;
+}
+
+.hero h1 {
+  color: var(--green);
+  font-size: clamp(30px, 7vw, 55px);
+  text-shadow: 0 0 18px #00ff75;
+}
+
+.hero p {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.panel {
+  background: #08170edb;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin: 25px 0;
+  box-shadow: 0 0 18px #00250e55;
+}
+
+h2, h3 { color: var(--green); }
+
+.muted { color: var(--muted); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card img {
+  width: 100%;
+  height: 145px;
+  object-fit: cover;
+}
+
+.card-content { padding: 16px; }
+
+.card p { color: var(--muted); line-height: 1.6; }
+
+input, textarea {
+  width: 100%;
+  padding: 13px;
+  margin: 9px 0;
+  background: #020b05;
+  border: 1px solid var(--border);
+  color: var(--green);
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+textarea { min-height: 90px; resize: vertical; }
+
+button {
+  padding: 12px 17px;
+  margin: 5px 3px;
+  background: var(--green);
+  color: #001b09;
+  border: 0;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+button:hover { background: white; }
+
+.secondary {
+  background: transparent;
+  color: var(--green);
+  border: 1px solid var(--green);
+}
+
+.hidden { display: none !important; }
+
+#clock {
+  font-size: 29px;
+  color: var(--green);
+  margin: 15px;
+  text-shadow: 0 0 10px var(--green);
+}
+
+.status {
+  border: 1px solid var(--border);
+  padding: 12px;
+  margin: 9px 0;
+  border-radius: 5px;
+  color: var(--green);
+}
+
+.message {
+  min-height: 22px;
+  color: var(--green);
+  font-size: 13px;
+}
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+
+.small { font-size: 12px; }
+
+@media(max-width: 550px) {
+  nav { gap: 3px; }
+  nav a { font-size: 11px; }
+  .panel { padding: 17px; }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<header>
+  <div class="logo">HACKER MATRIX 3.0</div>
+  <p>CYBER LAB | LEARN • EXPLORE • PROTECT</p>
+</header>
+
+<nav>
+  <a href="#home">HOME</a>
+  <a href="#about">ABOUT</a>
+  <a href="#gallery">GALLERY</a>
+  <a href="#account">ACCOUNT</a>
+  <a href="#tools">TOOLS</a>
+  <a href="#security">SECURITY</a>
+</nav>
+
+<main>
+
+<!-- HOME -->
+
+<section id="home" class="hero">
+  <div>
+    <h1>WELCOME TO CYBER WORLD</h1>
+    <p>Discover technology. Learn programming.<br>
+    Understand cybersecurity.</p>
+    <div id="clock"></div>
+    <p>● SYSTEM ONLINE</p>
+    <a href="#about">
+      <button>EXPLORE THE SITE</button>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+
+<section id="about" class="panel">
+  <h2>ABOUT OUR PROJECT</h2>
+  <p class="muted">
+    Hacker Matrix is an educational project designed
+    to introduce beginners to programming and
+    cybersecurity.
+  </p>
+
+  <div class="grid">
+    <div class="status">HTML — Structure</div>
+    <div class="status">CSS — Design</div>
+    <div class="status">JavaScript — Interaction</div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+
+<section id="gallery" class="panel">
+  <h2>CYBER GALLERY</h2>
+  <p class="muted">Explore the digital world.</p>
+
+  <div class="grid">
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=700"
+      alt="Computer hardware">
+      <div class="card-content">
+        <h3>TECHNOLOGY</h3>
+        <p>Discover computers and digital systems.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=700"
+      alt="Computer workspace">
+      <div class="card-content">
+        <h3>PROGRAMMING</h3>
+        <p>Learn how software is created.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=700"
+      alt="Cybersecurity technology">
+      <div class="card-content">
+        <h3>CYBERSECURITY</h3>
+        <p>Learn to protect digital information.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ACCOUNT -->
+
+<section id="account" class="panel">
+
+  <div id="accountForms">
+
+    <h2>USER ACCOUNT</h2>
+
+    <div class="grid">
+
+      <div>
+        <h3>LOGIN</h3>
+
+        <input id="loginUser"
+        placeholder="Username">
+
+        <input id="loginPass"
+        type="password"
+        placeholder="Password">
+
+        <button onclick="login()">LOGIN</button>
+
+        <p id="loginMessage" class="message"></p>
+
+        <p class="small muted">
+          Demo: student / 1234
+        </p>
+      </div>
+
+      <div>
+        <h3>REGISTER</h3>
+
+        <input id="registerUser"
+        placeholder="Choose username">
+
+        <input id="registerPass"
+        type="password"
+        placeholder="Choose demo password">
+
+        <button onclick="register()">CREATE ACCOUNT</button>
+
+        <p id="registerMessage" class="message"></p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- USER DASHBOARD -->
+
+  <div id="dashboard" class="hidden">
+
+    <h2>ACCESS GRANTED</h2>
+    <h3 id="welcomeUser"></h3>
+
+    <div class="status">ACCOUNT STATUS: ACTIVE</div>
+    <div class="status">SESSION: LOCAL DEMO</div>
+    <div class="status">SECURITY: EDUCATIONAL MODE</div>
+
+    <h3>USER DASHBOARD</h3>
+    <p>Welcome to your digital workspace.</p>
+
+    <button onclick="logout()">LOGOUT</button>
+
+  </div>
+
+</section>
+
+<!-- TOOLS -->
+
+<section id="tools" class="panel">
+
+  <h2>CYBER TOOLS</h2>
+
+  <div class="grid">
+
+    <div>
+      <h3>CALCULATOR</h3>
+
+      <input id="number1"
+      type="number" placeholder="First number">
+
+      <input id="number2"
+      type="number" placeholder="Second number">
+
+      <button onclick="calculate()">ADD</button>
+
+      <p id="calcMessage" class="message"></p>
+    </div>
+
+    <div>
+      <h3>TEXT ANALYZER</h3>
+
+      <textarea id="textData"
+      placeholder="Write your text here"></textarea>
+
+      <button onclick="analyzeText()">ANALYZE</button>
+
+      <p id="textMessage" class="message"></p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SECURITY -->
+
+<section id="security" class="panel">
+
+  <h2>SECURITY CENTER</h2>
+
+  <p class="muted">
+    Basic security recommendations:
+  </p>
+
+  <div class="status">✓ Use strong and unique passwords</div>
+  <div class="status">✓ Activate two-factor authentication</div>
+  <div class="status">✓ Keep your software updated</div>
+  <div class="status">✓ Avoid suspicious links</div>
+  <div class="status">✓ Protect personal information</div>
+
+  <button onclick="securityCheck()">CHECK SYSTEM</button>
+
+  <p id="securityMessage" class="message"></p>
+
+</section>
+
+<!-- CONTACT -->
+
+<section class="panel">
+  <h2>CONTACT / FEEDBACK</h2>
+  <p class="muted">Leave a message about this project.</p>
+
+  <input id="contactName" placeholder="Your name">
+  <textarea id="contactText" placeholder="Your message"></textarea>
+
+  <button onclick="sendFeedback()">SUBMIT MESSAGE</button>
+
+  <p id="contactMessage" class="message"></p>
+</section>
+
+</main>
+
+<footer>
+  <h3>HACKER MATRIX 3.0</h3>
+  <p>Educational Cybersecurity Laboratory</p>
+  <p class="small">© 2026 | LEARN • EXPLORE • PROTECT</p>
+</footer>
+
+<script>
+
+// CLOCK
+
+function updateClock() {
+  document.getElementById("clock").textContent =
+    new Date().toLocaleTimeString();
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+
+
+// DEMO ACCOUNT
+
+const demoAccounts = {
+  student: "1234"
+};
+
+// TEMPORARY REGISTERED ACCOUNTS
+// They exist only until the page is refreshed.
+
+const registeredAccounts = {};
+
+
+// LOGIN
+
+function login() {
+
+  const user = document.getElementById("loginUser").value.trim();
+  const pass = document.getElementById("loginPass").value;
+
+  const validPassword =
+    demoAccounts[user] || registeredAccounts[user];
+
+  if (validPassword && validPassword === pass) {
+
+    document.getElementById("accountForms").classList.add("hidden");
+    document.getElementById("dashboard").classList.remove("hidden");
+
+    document.getElementById("welcomeUser").textContent =
+      "WELCOME, " + user.toUpperCase();
+
+    document.getElementById("loginMessage").textContent = "";
+
+  } else {
+
+    document.getElementById("loginMessage").textContent =
+      "Incorrect username or password!";
+
+  }
+}
+
+
+// REGISTER
+
+function register() {
+
+  const user = document.getElementById("registerUser").value.trim();
+  const pass = document.getElementById("registerPass").value;
+  const message = document.getElementById("registerMessage");
+
+  if (user.length < 3 || pass.length < 6) {
+    message.textContent =
+      "Username: 3 characters minimum. Password: 6 minimum.";
+    return;
+  }
+
+  if (demoAccounts[user] || registeredAccounts[user]) {
+    message.textContent = "Username already exists!";
+    return;
+  }
+
+  registeredAccounts[user] = pass;
+
+  message.textContent =
+    "Demo account created! You can now login.";
+
+  document.getElementById("registerUser").value = "";
+  document.getElementById("registerPass").value = "";
+}
+
+
+// LOGOUT
+
+function logout() {
+
+  document.getElementById("dashboard").classList.add("hidden");
+  document.getElementById("accountForms").classList.remove("hidden");
+
+  document.getElementById("loginUser").value = "";
+  document.getElementById("loginPass").value = "";
+}
+
+
+// CALCULATOR
+
+function calculate() {
+
+  const a = document.getElementById("number1").value;
+  const b = document.getElementById("number2").value;
+
+  if (a === "" || b === "") {
+    document.getElementById("calcMessage").textContent =
+      "Enter both numbers.";
+    return;
+  }
+
+  document.getElementById("calcMessage").textContent =
+    "RESULT: " + (Number(a) + Number(b));
+
+}
+
+
+// TEXT ANALYZER
+
+function analyzeText() {
+
+  const text = document.getElementById("textData").value;
+
+  document.getElementById("textMessage").textContent =
+    "Characters: " + text.length +
+    " | Words: " + (text.trim() ? text.trim().split(/\s+/).length : 0);
+
+}
+
+
+// SECURITY CHECK
+
+function securityCheck() {
+
+  document.getElementById("securityMessage").textContent =
+    "Educational checklist displayed. Review all security recommendations.";
+
+}
+
+
+// FEEDBACK
+
+function sendFeedback() {
+
+  const name = document.getElementById("contactName").value.trim();
+  const message = document.getElementById("contactText").value.trim();
+
+  if (!name || !message) {
+    document.getElementById("contactMessage").textContent =
+      "Please fill in both fields.";
+    return;
+  }
+
+  document.getElementById("contactMessage").textContent =
+    "Thank you, " + name + "! Demo message received.";
+
+  document.getElementById("contactName").value = "";
+  document.getElementById("contactText").value = "";
+
+}
+
+
+// MATRIX ANIMATION
+
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+const chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const fontSize = 15;
+let drops = [];
+
+function resizeCanvas() {
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const columns = Math.ceil(canvas.width / fontSize);
+
+  drops = Array(columns).fill(1);
+
+}
+
+function drawMatrix() {
+
+  ctx.fillStyle = "rgba(0,0,0,0.08)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = "#00ff75";
+  ctx.font = fontSize + "px monospace";
+
+  drops.forEach((y, i) => {
+
+    const char = chars[
+      Math.floor(Math.random() * chars.length)
+    ];
+
+    ctx.fillText(char, i * fontSize, y * fontSize);
+
+    if (
+      y * fontSize > canvas.height &&
+      Math.random() > 0.975
+    ) {
+      drops[i] = 0;
+    }
+
+    drops[i]++;
+
+  });
+
+}
+
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+setInterval(drawMatrix, 45);
+
+</script>
+
+</body>
+</html>
